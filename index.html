@@ -77,6 +77,26 @@ document.addEventListener('DOMContentLoaded', function() {
         offsetTop: 0,
         offsetBot: 50
     });
+	function handleSecondContainer() {
+        const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
+        if (!secondContainer) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    secondContainer.classList.add('in-view');
+                } else {
+                    secondContainer.classList.remove('in-view');
+                }
+            });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        });
+
+        observer.observe(secondContainer);
+    }
+
+    handleSecondContainer();
 	const menuBtn = document.querySelector('.my-2023-menu-btn');
     const banner = document.querySelector('.banner');
 

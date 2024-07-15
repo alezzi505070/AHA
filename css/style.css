@@ -817,15 +817,12 @@ body {
 /* About Us Section Styles */
 .about-us-section {
     padding: 50px 0;
-
 }
 
 .about-us-container {
     width: 90%;
-
     margin: 5% auto;
-	flex-direction: row-reverse;
-	overflow-x: hidden;
+    overflow-x: hidden;
 }
 .about-us-container:nth-of-type(even) .about-us-image {
 	order: -1;
@@ -846,7 +843,10 @@ body {
     flex-direction: row-reverse; /* For RTL layout */
     flex-wrap: wrap;
     align-items: center;
+    opacity: 0;
+    transition: all 1s;
 }
+
 
 .about-us-col {
     width: 50%;
@@ -887,10 +887,19 @@ body {
 /* Animation Styles */
 .about-us-row {
     transform: translateX(100%);
+}
+
+/* New styles for the second container */
+.about-us-container:nth-of-type(2) .about-us-row {
+    transform: translateX(-100%);
     opacity: 0;
     transition: all 1s;
 }
 
+.about-us-container:nth-of-type(2) .about-us-row.in-view {
+    transform: translateX(0);
+    opacity: 1;
+}
 .about-us-row.in-view {
     transform: translateX(0);
     opacity: 1;
