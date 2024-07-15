@@ -1239,7 +1239,7 @@ i.fa.fa-cutlery {
     flex-shrink: 0;
 }
 .flip-card-font3.arabic-list li::before {
-    /* content: "-"; */
+    content: "-"; 
     margin-left: 3px;
     margin-right: 3px;
     display: inline-block;
