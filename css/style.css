@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Changa&display=swap');
 
 body{
 	padding:0;
 	margin:0;
 	background:#fff;
 	position:relative;
-	font-family: 'Josefin Sans', sans-serif;
+	font-family: 'Changa', 'Josefin Sans', sans-serif;
 	
 }
 body a{
@@ -31,11 +32,11 @@ input[type="button"],input[type="submit"]{
 }
 h1,h2,h3,h4,h5,h6{
 	margin:0;	
-	font-family: 'Nunito Sans', sans-serif;
+	font-family: 'Changa', 'Nunito Sans', sans-serif;
 }	
 p {
     margin: 0;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Changa', 'Josefin Sans', sans-serif;
     letter-spacing: 1px;
     font-size: 1em;
     color: #999;
@@ -107,7 +108,7 @@ label{
 	margin: 0 !important;
 	padding: 0 !important;
 	box-sizing: border-box !important;
-	font-family: 'Lato', sans-serif, 'Oswald', sans-serif !important;
+	font-family: 'Changa', 'Lato', sans-serif, 'Oswald', sans-serif !important;
   }
   
   .my-2023-unique-menu .my-2023-wrapper {
@@ -226,7 +227,7 @@ label{
 
   
   .my-2023-unique-menu .my-2023-wrapper ul li a:hover {
-	color: #1a73e8 !important;
+	color: #bd926D !important;
   }
   
   .my-2023-unique-menu input[type="checkbox"] {
@@ -342,7 +343,7 @@ h1.w3l-logo a {
     display: inline-block;
     clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);  /* Adjusted clip-path for wider shape */
     border: 0px solid #896b00;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Changa', 'Josefin Sans', sans-serif;
 }
 
 
@@ -353,7 +354,7 @@ h1.w3l-logo a i {
 
 body {
 	margin: 0;
-	font-family: Arial, sans-serif;
+	font-family: 'Changa', Arial, sans-serif;
 }
 .aha-header-container {
 	position: relative;
@@ -435,7 +436,7 @@ body {
     width: 70%;
     left:15.5%;
     color: #fff;
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'Changa','Nunito Sans', sans-serif;
     letter-spacing: 1px;
 	font-weight: 300;
 }
@@ -782,7 +783,7 @@ body {
   .unique-h1,
   .unique-h2 {
 	line-height: 1;
-	font-family: 'Playfair Display', serif;
+	font-family: 'Changa', 'Playfair Display', serif;
   }
   .unique-p {
 	font-size: 16px;
@@ -1105,7 +1106,7 @@ i.fa.fa-cutlery {
     width: 300px; /* Adjust card width */
     height: 280px; /* Adjust card height */
     perspective: 1000px;
-    font-family: 'Noto Sans Arabic', sans-serif;
+    font-family: 'Changa', 'Noto Sans Arabic', sans-serif;
     margin: 10px;
 }
 
@@ -1150,27 +1151,27 @@ i.fa.fa-cutlery {
     align-self: flex-end; /* Aligns the h4 to the right side */
     margin: 5px 0;
 	padding-right: 7%;
-	font-family: 'Noto Sans Arabic';
+	font-family: 'Changa', 'Noto Sans Arabic';
 	color: #553637
 }
 .flip-card-front h5 {
     align-self: flex-end; /* Aligns the h4 to the right side */
     margin: 5px 0;
 	padding-right: 7%;
-	font-family: 'Noto Sans Arabic';
+	font-family: 'Changa', 'Noto Sans Arabic';
 	color: #553637
 }
 .flip-card-front h6 {
     align-self: flex-end; /* Aligns the h4 to the right side */
     margin: 5px 0;
 	padding-right: 7%;
-	font-family: 'Noto Sans Arabic';
+	font-family: 'Changa', 'Noto Sans Arabic';
 	color: #b7b2b2
 }
 .flip-card-font {
     color: rgba(137, 107, 0, 0.1);
     font-size: 3ch;
-	font-family: 'Noto Sans Arabic', sans-serif;
+	font-family: 'Changa', 'Noto Sans Arabic', sans-serif;
 }
 .arabic-text {
     direction: rtl;
@@ -1182,7 +1183,7 @@ i.fa.fa-cutlery {
     padding: 5%;
     color: #553637;
     font-size: calc(8px + 0.5vw + 0.5vh);
-    font-family: 'Noto Sans Arabic', sans-serif;
+    font-family: 'Changa', 'Noto Sans Arabic', sans-serif;
     direction: rtl;
     text-align: right;
     list-style-position: inside;
@@ -1193,7 +1194,7 @@ i.fa.fa-cutlery {
     padding: 5%;
     color: #553637;
     font-size: 30px;
-    font-family: 'Noto Sans Arabic', sans-serif;
+    font-family: 'Changa', 'Noto Sans Arabic', sans-serif;
     direction: rtl;
     text-align: right;
     list-style-position: inside;
@@ -1237,11 +1238,12 @@ i.fa.fa-cutlery {
     flex-shrink: 0;
 }
 .flip-card-font3.arabic-list li::before {
-    content: "-";
+    /* content: "-"; */
     margin-left: 3px;
     margin-right: 3px;
     display: inline-block;
     flex-shrink: 0;
+	
 }
 
 @media (max-width: 768px) {
@@ -2606,23 +2608,7 @@ section.footer-w3 ul.tweet-agile li p.tweet-p2 {
 	}
 }
 
-.custom-body-class {
-	font-family: Arial, sans-serif;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 60vh;
-	margin: 0%;
-}
-@media (max-width: 768px) {
-	.custom-body-class {
-		height: 80vh;
-		margin-bottom: 30%;
-		margin-top: 30%;
-
-	}
-}
 .float {
 	padding-top: 0.7%;
 	position: fixed;
@@ -2638,10 +2624,13 @@ section.footer-w3 ul.tweet-agile li p.tweet-p2 {
 	box-shadow: 2px 2px 3px #030303;
 	z-index: 100;
 	animation: bounce 2s infinite;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.my-float {
-	margin-top: 16px;
+.float i {
+	margin-top: -2px; /* Adjust this value as needed */
 }
 
 @keyframes bounce {
@@ -2658,15 +2647,29 @@ section.footer-w3 ul.tweet-agile li p.tweet-p2 {
 
 @media only screen and (max-width: 600px) {
 	.float {
-		width: 50px;
-		height: 50px;
-		bottom: 20px;
-		right: 20px;
-		font-size: 25px;
+		width: 70px;
+		height: 70px;
+		bottom: 25px;
+		right: 25px;
+		font-size: 35px;
 	}
+}
 
-	.my-float {
-		margin-top: 13px;
+.custom-body-class {
+	font-family: 'Changa', Arial, sans-serif;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60vh;
+	margin: 0%;
+}
+@media (max-width: 600px) {
+	.custom-body-class {
+		height: 80vh;
+		margin-bottom: 30%;
+		margin-top: 30%;
+
 	}
 }
 .fire-systems-container {
@@ -2690,7 +2693,7 @@ section.footer-w3 ul.tweet-agile li p.tweet-p2 {
 .fire-systems-icon {
 	width: 60px;
 	height: 60px;
-	background-color: #b19980;
+	background-color: #bd926D;
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
