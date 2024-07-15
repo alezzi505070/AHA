@@ -868,7 +868,8 @@ body {
 
 /* Text Styles */
 .about-us-text {
-    text-align: right;
+    text-align: justify;
+	direction: rtl;
 }
 
 .about-us-text h4 {
@@ -1088,7 +1089,7 @@ i.fa.fa-cutlery {
 @media (max-width: 600px) {
     .title-w3l {
         font-size: 2em;
-        padding-right: 20px;
+        padding-right: 1px;
         text-align: center;
     }
 }
