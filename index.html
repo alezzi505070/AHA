@@ -150,7 +150,18 @@
             this.reset();
         });
     });
+	// Force light mode
+	function forceLightMode() {
+            document.documentElement.style.setProperty('color-scheme', 'light only');
+            document.body.style.setProperty('background-color', '#ffffff', 'important');
+            document.body.style.setProperty('color', '#000000', 'important');
+        }
 
+        // Call the function immediately
+        forceLightMode();
+
+        // Also call it when the page loads
+        window.addEventListener('load', forceLightMode);
     function hideURLbar() {
         if (typeof window.scrollTo === 'function') {
             window.scrollTo(0, 1);
@@ -615,7 +626,7 @@
 					</div>
 					<div class="col-xs-10 address-right">
 						<h5>البريد الألكتروني </h5>
-						<p><a href="mailto:aalazee@tagi.com"> aalazee@tagi.com</a></p>
+						<p><a href="mailto:aalazee@tagi.com" style="color: #999;"> aalazee@tagi.com</a></p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
