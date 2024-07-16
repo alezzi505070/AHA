@@ -151,55 +151,38 @@
         });
     });
 	// Force light mode
-	// Function to force light mode
-function forceLightMode() {
-    // Use CSS variables for easier management
-    document.documentElement.style.setProperty('--background-color', '#ffffff');
-    document.documentElement.style.setProperty('--text-color', '#000000');
-    
-    // Apply styles to body
-    document.body.style.backgroundColor = 'var(--background-color)';
-    document.body.style.color = 'var(--text-color)';
-    
-    // Add a class to body for light mode
-    document.body.classList.add('light-mode');
-}
+	function forceLightMode() {
+            document.documentElement.style.setProperty('color-scheme', 'light only', 'important');
+            document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
+            document.documentElement.style.setProperty('--text-color', '#000000', 'important');
+            
+            document.body.style.setProperty('background-color', '#ffffff', 'important');
+            document.body.style.setProperty('color', '#000000', 'important');
+            
+            // Force light mode on all elements
+            var allElements = document.getElementsByTagName('*');
+            for (var i = 0; i < allElements.length; i++) {
+                allElements[i].style.setProperty('background-color', 'inherit', 'important');
+                allElements[i].style.setProperty('color', 'inherit', 'important');
+            }
+        }
 
-// Function to check and apply light mode
-function checkAndApplyLightMode() {
-    if (!document.body.classList.contains('light-mode')) {
+        // Call the function immediately
         forceLightMode();
-    }
-}
 
-// Apply light mode immediately
-forceLightMode();
+        // Also call it when the page loads and after a short delay
+        window.addEventListener('load', function() {
+            forceLightMode();
+            setTimeout(forceLightMode, 100);
+        });
 
-// Check and apply on load and after a short delay
-window.addEventListener('load', function() {
-    checkAndApplyLightMode();
-    setTimeout(checkAndApplyLightMode, 100);
-});
-
-// Use MutationObserver to check for DOM changes
-const observer = new MutationObserver(checkAndApplyLightMode);
-observer.observe(document.body, { childList: true, subtree: true });
-
-// Add corresponding CSS
-const style = document.createElement('style');
-style.textContent = `
-    .light-mode, .light-mode * {
-        background-color: var(--background-color);
-        color: var(--text-color);
-    }
-    @media (prefers-color-scheme: dark) {
-        .light-mode, .light-mode * {
-            background-color: var(--background-color) !important;
-            color: var(--text-color) !important;
+        // Periodically check and enforce light mode
+        setInterval(forceLightMode, 1000);
+    function hideURLbar() {
+        if (typeof window.scrollTo === 'function') {
+            window.scrollTo(0, 1);
         }
     }
-`;
-document.head.appendChild(style);
 
     function inView(opt) {
         if (!opt || !opt.selector) {
