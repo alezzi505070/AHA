@@ -5,10 +5,7 @@
     --text-color: #000000;
 }
 /* Light mode styles */
-body.light-mode {
-    background-color: white;
-    color: black;
-}
+
 
 /* Add other styles you need for light mode */
 
