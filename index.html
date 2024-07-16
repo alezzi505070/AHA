@@ -152,16 +152,32 @@
     });
 	// Force light mode
 	function forceLightMode() {
-            document.documentElement.style.setProperty('color-scheme', 'light only');
+            document.documentElement.style.setProperty('color-scheme', 'light only', 'important');
+            document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
+            document.documentElement.style.setProperty('--text-color', '#000000', 'important');
+            
             document.body.style.setProperty('background-color', '#ffffff', 'important');
             document.body.style.setProperty('color', '#000000', 'important');
+            
+            // Force light mode on all elements
+            var allElements = document.getElementsByTagName('*');
+            for (var i = 0; i < allElements.length; i++) {
+                allElements[i].style.setProperty('background-color', 'inherit', 'important');
+                allElements[i].style.setProperty('color', 'inherit', 'important');
+            }
         }
 
         // Call the function immediately
         forceLightMode();
 
-        // Also call it when the page loads
-        window.addEventListener('load', forceLightMode);
+        // Also call it when the page loads and after a short delay
+        window.addEventListener('load', function() {
+            forceLightMode();
+            setTimeout(forceLightMode, 100);
+        });
+
+        // Periodically check and enforce light mode
+        setInterval(forceLightMode, 1000);
     function hideURLbar() {
         if (typeof window.scrollTo === 'function') {
             window.scrollTo(0, 1);
@@ -646,7 +662,7 @@
 				<div class="col-sm-6 contact-left">
 					<input type="text" name="Name" placeholder="Your Name" required>
 					<input type="email" name="Email" placeholder="Email" required>
-					<input type="tel" name="Mobile" placeholder="Mobile Number" required>
+					<input type="text" name="Mobile" placeholder="Mobile Number" required>
 				</div>
 				<div class="col-sm-6 contact-right">
 					<textarea name="Message" placeholder="Message" required></textarea>
