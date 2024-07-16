@@ -2,9 +2,9 @@
 :root{
 	color-scheme: light;
 }
-@media (color-scheme:dark){
+@media (prefers-color-scheme:dark){
 	body{
-		background:#fff;
+		background:#000;
 	}}
 body{
 	padding:0;
