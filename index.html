@@ -151,35 +151,76 @@
         });
     });
 	// Function to force light mode
+// Function to force light mode
 function forceLightMode() {
-    // Set light mode styles
     document.documentElement.style.setProperty('color-scheme', 'light', 'important');
     document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
     document.documentElement.style.setProperty('--text-color', '#000000', 'important');
     
+    applyStyles();
+}
+
+// Function to switch to dark mode
+function switchToDarkMode() {
+    document.documentElement.style.setProperty('color-scheme', 'dark', 'important');
+    document.documentElement.style.setProperty('--background-color', '#121212', 'important');
+    document.documentElement.style.setProperty('--text-color', '#ffffff', 'important');
+    
+    applyStyles();
+}
+
+// Function to apply styles and replace specific colors
+function applyStyles() {
+    const isDarkMode = document.documentElement.style.getPropertyValue('color-scheme') === 'dark';
+    
     document.body.style.setProperty('background-color', 'var(--background-color)', 'important');
     document.body.style.setProperty('color', 'var(--text-color)', 'important');
     
-    // Force light mode on all elements
     const allElements = document.getElementsByTagName('*');
     for (let i = 0; i < allElements.length; i++) {
-        allElements[i].style.setProperty('background-color', 'inherit', 'important');
-        allElements[i].style.setProperty('color', 'var(--text-color)', 'important');
+        const element = allElements[i];
+        element.style.setProperty('background-color', 'inherit', 'important');
+        element.style.setProperty('color', 'var(--text-color)', 'important');
+        
+        if (isDarkMode) {
+            replaceColor(element, '#553637', '#ffffff');
+        }
     }
 }
 
-// Function to check and apply light mode
-function checkAndApplyLightMode() {
-    forceLightMode();
+// Function to replace a specific color in an element
+function replaceColor(element, oldColor, newColor) {
+    const styles = window.getComputedStyle(element);
+    const properties = ['color', 'background-color', 'border-color'];
+    
+    properties.forEach(prop => {
+        if (styles[prop].toLowerCase() === oldColor.toLowerCase()) {
+            element.style.setProperty(prop, newColor, 'important');
+        }
+    });
+    
+    if (element.style.color.toLowerCase() === oldColor.toLowerCase()) {
+        element.style.setProperty('color', newColor, 'important');
+    }
 }
 
-// Apply light mode immediately
+// Function to toggle between light and dark mode
+function toggleMode() {
+    const currentMode = document.documentElement.style.getPropertyValue('color-scheme');
+    if (currentMode === 'dark') {
+        forceLightMode();
+    } else {
+        switchToDarkMode();
+    }
+}
+
+// Initial application of light mode
 forceLightMode();
 
 // Check and apply on load and after a short delay
 window.addEventListener('load', function() {
-    checkAndApplyLightMode();
-    setTimeout(checkAndApplyLightMode, 100);
+    applyStyles();
+    setTimeout(applyStyles, 100);
 });
 
 // Use MutationObserver to check for DOM changes
@@ -188,13 +229,7 @@ const observer = new MutationObserver(mutations => {
         if (mutation.type === 'childList') {
             mutation.addedNodes.forEach(node => {
                 if (node.nodeType === 1) { // ELEMENT_NODE
-                    node.style.setProperty('color', 'var(--text-color)', 'important');
-                    if (node.hasChildNodes()) {
-                        const children = node.getElementsByTagName('*');
-                        for (let i = 0; i < children.length; i++) {
-                            children[i].style.setProperty('color', 'var(--text-color)', 'important');
-                        }
-                    }
+                    applyStyles();
                 }
             });
         }
@@ -203,8 +238,8 @@ const observer = new MutationObserver(mutations => {
 
 observer.observe(document.body, { childList: true, subtree: true });
 
-// Periodically check and enforce light mode
-setInterval(checkAndApplyLightMode, 1000);
+// Periodically check and enforce styles
+setInterval(applyStyles, 1000);
 
 // Add corresponding CSS
 const style = document.createElement('style');
@@ -215,6 +250,16 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Add a toggle button to the page (you can remove this if you want to control it programmatically)
+const toggleButton = document.createElement('button');
+toggleButton.textContent = 'Toggle Light/Dark Mode';
+toggleButton.style.position = 'fixed';
+toggleButton.style.top = '10px';
+toggleButton.style.right = '10px';
+toggleButton.style.zIndex = '9999';
+toggleButton.addEventListener('click', toggleMode);
+document.body.appendChild(toggleButton);
     function hideURLbar() {
         if (typeof window.scrollTo === 'function') {
             window.scrollTo(0, 1);
