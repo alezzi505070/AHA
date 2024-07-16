@@ -2,7 +2,7 @@
 :root{
 	color-scheme: light;
 }
-@media (prefers-color-scheme:dark){
+@media (color-scheme:dark){
 	body{
 		background:#fff;
 	}}
