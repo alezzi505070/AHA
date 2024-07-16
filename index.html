@@ -8,173 +8,213 @@
 <html lang="zxx">
 
 <head>
-	<title>Garden Care an Agriculture Category Bootstrap Responsive web Template | Home :: w3layouts</title>
+	<title>AHA Office</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Garden Care web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"
 	/>
-	<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-    // Generic slider functionality
-    function setupSlider(sliderSelector, slideSelector, dotSelector) {
-        const slider = document.querySelector(sliderSelector);
-        const slides = document.querySelectorAll(slideSelector);
-        const dots = document.querySelectorAll(dotSelector);
-        
-        if (!slider || slides.length === 0) {
-            console.error(`Slider or slides not found for ${sliderSelector}. Check your HTML structure and class names.`);
-            return;
-        }
-
-        const totalSlides = slides.length;
-        let currentSlide = 0;
-
-        function showSlide(index) {
-            if (index < 0 || index >= totalSlides) {
-                console.error('Invalid slide index:', index);
+	 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Generic slider functionality
+        function setupSlider(sliderSelector, slideSelector, dotSelector) {
+            const slider = document.querySelector(sliderSelector);
+            const slides = document.querySelectorAll(slideSelector);
+            const dots = document.querySelectorAll(dotSelector);
+            
+            if (!slider || slides.length === 0) {
+                console.error(`Slider or slides not found for ${sliderSelector}. Check your HTML structure and class names.`);
                 return;
             }
-            slider.style.transform = `translateX(-${index * 100}%)`;
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
+
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                if (index < 0 || index >= totalSlides) {
+                    console.error('Invalid slide index:', index);
+                    return;
+                }
+                slider.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            }
+
+            // Set up dot click listeners
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
             });
-            currentSlide = index;
+
+            // Start the slideshow
+            let slideInterval = setInterval(nextSlide, 5000);
+
+            // Pause slideshow on mouse enter, resume on mouse leave
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+
+            // Initial call to show the first slide
+            showSlide(0);
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            showSlide(currentSlide);
-        }
+        // Set up both sliders
+        setupSlider('.slider', '.slide', '.dot');
+        setupSlider('.slider1', '.slide1', '.dotnew');
 
-        // Set up dot click listeners
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => showSlide(index));
+        // Hide URL bar on mobile
+        setTimeout(hideURLbar, 0);
+
+        // InView functionality
+        inView({
+            selector: '.about-us-row',
+            once: false,
+            offsetTop: 0,
+            offsetBot: 50
         });
 
-        // Start the slideshow
-        let slideInterval = setInterval(nextSlide, 5000);
+        function handleSecondContainer() {
+            const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
+            if (!secondContainer) return;
 
-        // Pause slideshow on mouse enter, resume on mouse leave
-        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        secondContainer.classList.add('in-view');
+                    } else {
+                        secondContainer.classList.remove('in-view');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
 
-        // Initial call to show the first slide
-        showSlide(0);
-    }
+            observer.observe(secondContainer);
+        }
 
-    // Set up both sliders
-    setupSlider('.slider', '.slide', '.dot');
-    setupSlider('.slider1', '.slide1', '.dotnew');
+        handleSecondContainer();
 
-    // Hide URL bar on mobile
-    setTimeout(hideURLbar, 0);
+        const menuBtn = document.querySelector('.my-2023-menu-btn');
+        const banner = document.querySelector('.banner');
 
-    // InView functionality
-    inView({
-        selector: '.about-us-row',
-        once: false,
-        offsetTop: 0,
-        offsetBot: 50
-    });
-	function handleSecondContainer() {
-        const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
-        if (!secondContainer) return;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    secondContainer.classList.add('in-view');
+        function checkScroll() {
+            if (banner && menuBtn) {
+                const bannerBottom = banner.offsetTop + banner.offsetHeight;
+                if (window.pageYOffset > bannerBottom) {
+                    menuBtn.classList.add('scrolled');
                 } else {
-                    secondContainer.classList.remove('in-view');
+                    menuBtn.classList.remove('scrolled');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        // Call once to set initial state
+        checkScroll();
+
+        // Contact form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic client-side validation
+            var name = this.Name.value.trim();
+            var email = this.Email.value.trim();
+            var mobile = this.Mobile.value.trim();
+            var message = this.Message.value.trim();
+            
+            if (name === '' || email === '' || mobile === '' || message === '') {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            
+            if (!isValidMobile(mobile)) {
+                alert('Please enter a valid mobile number');
+                return;
+            }
+            
+            // If validation passes, you would typically send this data to a server
+            // For demonstration, we'll just log it to the console
+            console.log('Form submitted:', { name, email, mobile, message });
+            alert('Form submitted successfully!');
+            this.reset();
+        });
+    });
+
+    function hideURLbar() {
+        if (typeof window.scrollTo === 'function') {
+            window.scrollTo(0, 1);
+        }
+    }
+
+    function inView(opt) {
+        if (!opt || !opt.selector) {
+            console.error('Valid selector required for inView');
+            return;
+        }
+       
+        const elems = Array.from(document.querySelectorAll(opt.selector));
+        const once = opt.once !== false;
+        const offsetTop = opt.offsetTop || 0;
+        const offsetBot = opt.offsetBot || 0;
+        let winHeight = window.innerHeight;
+        let ticking = false;
+
+        function update() {
+            elems.forEach((elem, index) => {
+                const rect = elem.getBoundingClientRect();
+                if (rect.bottom >= offsetTop && rect.top <= winHeight - offsetBot) {
+                    elem.classList.add('in-view');
+                    if (once) {
+                        elems.splice(index, 1);
+                    }
+                } else if (!once) {
+                    elem.classList.remove('in-view');
                 }
             });
-        }, {
-            threshold: 0.1 // Trigger when 10% of the element is visible
-        });
+            ticking = false;
+        }
 
-        observer.observe(secondContainer);
-    }
-
-    handleSecondContainer();
-	const menuBtn = document.querySelector('.my-2023-menu-btn');
-    const banner = document.querySelector('.banner');
-
-    function checkScroll() {
-        if (banner && menuBtn) {
-            const bannerBottom = banner.offsetTop + banner.offsetHeight;
-            if (window.pageYOffset > bannerBottom) {
-                menuBtn.classList.add('scrolled');
-            } else {
-                menuBtn.classList.remove('scrolled');
+        function onResize() {
+            winHeight = window.innerHeight;
+            requestTick();
+        }
+       
+        function onScroll() {
+            requestTick();
+        }
+       
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(update);
+                ticking = true;
             }
         }
+
+        window.addEventListener('resize', onResize, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('touchmove', onScroll, { passive: true });
+       
+        onResize();
     }
 
-    window.addEventListener('scroll', checkScroll);
-    // Call once to set initial state
-    checkScroll();
-});
-
-	
-
-function hideURLbar() {
-    if (typeof window.scrollTo === 'function') {
-        window.scrollTo(0, 1);
-    }
-}
-
-function inView(opt) {
-    if (!opt || !opt.selector) {
-        console.error('Valid selector required for inView');
-        return;
-    }
-   
-    const elems = Array.from(document.querySelectorAll(opt.selector));
-    const once = opt.once !== false;
-    const offsetTop = opt.offsetTop || 0;
-    const offsetBot = opt.offsetBot || 0;
-    let winHeight = window.innerHeight;
-    let ticking = false;
-
-    function update() {
-        elems.forEach((elem, index) => {
-            const rect = elem.getBoundingClientRect();
-            if (rect.bottom >= offsetTop && rect.top <= winHeight - offsetBot) {
-                elem.classList.add('in-view');
-                if (once) {
-                    elems.splice(index, 1);
-                }
-            } else if (!once) {
-                elem.classList.remove('in-view');
-            }
-        });
-        ticking = false;
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    function onResize() {
-        winHeight = window.innerHeight;
-        requestTick();
+    function isValidMobile(mobile) {
+        return /^\d{9}$/.test(mobile);
     }
-   
-    function onScroll() {
-        requestTick();
-    }
-   
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(update);
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('resize', onResize, { passive: true });
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('touchmove', onScroll, { passive: true });
-   
-    onResize();
-}
-</script>
+    </script>
 	<!--// Meta tag Keywords -->
 	<!-- css files -->
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all">
@@ -590,14 +630,14 @@ function inView(opt) {
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-			<form action="#" method="post">
+			<form id="contactForm" action="#" method="post">
 				<div class="col-sm-6 contact-left">
-					<input type="text" name="Name" placeholder="Your Name" required="">
-					<input type="email" name="Email" placeholder="Email" required="">
-					<input type="text" name="Mobile Number" placeholder="Mobile Number" required="">
+					<input type="text" name="Name" placeholder="Your Name" required>
+					<input type="email" name="Email" placeholder="Email" required>
+					<input type="tel" name="Mobile" placeholder="Mobile Number" required>
 				</div>
 				<div class="col-sm-6 contact-right">
-					<textarea name="Message" placeholder="Message" required=""></textarea>
+					<textarea name="Message" placeholder="Message" required></textarea>
 					<input type="submit" value="Submit">
 				</div>
 				<div class="clearfix"></div>

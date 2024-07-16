@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Changa&display=swap');
-
+:root{
+	color-scheme: light;
+}
 body{
 	padding:0;
 	margin:0;
