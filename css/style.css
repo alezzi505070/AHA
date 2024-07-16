@@ -4,12 +4,20 @@
 	--background-color: #ffffff;
     --text-color: #000000;
 }
+/* Light mode styles */
+body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+/* Add other styles you need for light mode */
 
 @media (prefers-color-scheme: dark) {
 	html.force-light-mode {
 		filter: invert(100%) hue-rotate(180deg);
 	}
 }
+
 html, body {
 	background-color: #ffffff !important;
 	color: #000000 !important;

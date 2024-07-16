@@ -153,12 +153,15 @@
 	// Function to force light mode
 // Function to force light mode
 function forceLightMode() {
-    document.documentElement.style.setProperty('color-scheme', 'light', 'important');
-    document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
-    document.documentElement.style.setProperty('--text-color', '#000000', 'important');
-    
-    applyStyles();
-}
+            // Check if the browser supports prefers-color-scheme
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // Apply light mode class to the body
+                document.body.classList.add('light-mode');
+            }
+        }
+
+        // Call the function on page load
+        forceLightMode();
 
 // Function to switch to dark mode
 function switchToDarkMode() {
@@ -215,7 +218,7 @@ function toggleMode() {
 }
 
 // Initial application of light mode
-forceLightMode();
+
 
 // Check and apply on load and after a short delay
 window.addEventListener('load', function() {
