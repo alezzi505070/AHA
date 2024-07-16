@@ -2,6 +2,10 @@
 :root{
 	color-scheme: light;
 }
+@media (prefers-color-scheme:dark){
+	body{
+		background:#fff;
+	}}
 body{
 	padding:0;
 	margin:0;
