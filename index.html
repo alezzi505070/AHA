@@ -150,34 +150,71 @@
             this.reset();
         });
     });
-	// Force light mode
-	function forceLightMode() {
-            document.documentElement.style.setProperty('color-scheme', 'light only', 'important');
-            document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
-            document.documentElement.style.setProperty('--text-color', '#000000', 'important');
-            
-            document.body.style.setProperty('background-color', '#ffffff', 'important');
-            document.body.style.setProperty('color', '#000000', 'important');
-            
-            // Force light mode on all elements
-            var allElements = document.getElementsByTagName('*');
-            for (var i = 0; i < allElements.length; i++) {
-                allElements[i].style.setProperty('background-color', 'inherit', 'important');
-                allElements[i].style.setProperty('color', 'inherit', 'important');
-            }
+	// Function to force light mode
+function forceLightMode() {
+    // Set light mode styles
+    document.documentElement.style.setProperty('color-scheme', 'light', 'important');
+    document.documentElement.style.setProperty('--background-color', '#ffffff', 'important');
+    document.documentElement.style.setProperty('--text-color', '#000000', 'important');
+    
+    document.body.style.setProperty('background-color', 'var(--background-color)', 'important');
+    document.body.style.setProperty('color', 'var(--text-color)', 'important');
+    
+    // Force light mode on all elements
+    const allElements = document.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+        allElements[i].style.setProperty('background-color', 'inherit', 'important');
+        allElements[i].style.setProperty('color', 'var(--text-color)', 'important');
+    }
+}
+
+// Function to check and apply light mode
+function checkAndApplyLightMode() {
+    forceLightMode();
+}
+
+// Apply light mode immediately
+forceLightMode();
+
+// Check and apply on load and after a short delay
+window.addEventListener('load', function() {
+    checkAndApplyLightMode();
+    setTimeout(checkAndApplyLightMode, 100);
+});
+
+// Use MutationObserver to check for DOM changes
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+            mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) { // ELEMENT_NODE
+                    node.style.setProperty('color', 'var(--text-color)', 'important');
+                    if (node.hasChildNodes()) {
+                        const children = node.getElementsByTagName('*');
+                        for (let i = 0; i < children.length; i++) {
+                            children[i].style.setProperty('color', 'var(--text-color)', 'important');
+                        }
+                    }
+                }
+            });
         }
+    });
+});
 
-        // Call the function immediately
-        forceLightMode();
+observer.observe(document.body, { childList: true, subtree: true });
 
-        // Also call it when the page loads and after a short delay
-        window.addEventListener('load', function() {
-            forceLightMode();
-            setTimeout(forceLightMode, 100);
-        });
+// Periodically check and enforce light mode
+setInterval(checkAndApplyLightMode, 1000);
 
-        // Periodically check and enforce light mode
-        setInterval(forceLightMode, 1000);
+// Add corresponding CSS
+const style = document.createElement('style');
+style.textContent = `
+    * {
+        background-color: var(--background-color) !important;
+        color: var(--text-color) !important;
+    }
+`;
+document.head.appendChild(style);
     function hideURLbar() {
         if (typeof window.scrollTo === 'function') {
             window.scrollTo(0, 1);
