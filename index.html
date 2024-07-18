@@ -16,249 +16,139 @@
 	<meta name="keywords" content="Garden Care web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"
 	/>
 	 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Generic slider functionality
-        function setupSlider(sliderSelector, slideSelector, dotSelector) {
-            const slider = document.querySelector(sliderSelector);
-            const slides = document.querySelectorAll(slideSelector);
-            const dots = document.querySelectorAll(dotSelector);
-            
-            if (!slider || slides.length === 0) {
-                console.error(`Slider or slides not found for ${sliderSelector}. Check your HTML structure and class names.`);
-                return;
-            }
+    // Wrap everything in an IIFE to avoid global scope pollution
+(function() {
+    // Global variables for flip cards and popup
+    let flipCards, popupOverlay, popupTitle, popupDescription, closePopup;
 
-            const totalSlides = slides.length;
-            let currentSlide = 0;
+    
+const srvServiceInfo = {
+    'fire-fighting': {
+        title: 'التدقيق الخارجي',
+        description: '<span style="color: brown;">إن عمليات التدقيق الخارجي لدينا مصممة لمنح عملائنا:</span><ul>' +
+            '<li>مشورة أعمال لمساعدة المالكين والمساهمين والمدراء في اتخاذ قرارات عمل صائبة.</li>' +
+            '<li>النصائح والارشادات لتحقيق أهدافهم ومساعدة الإدارة في اتخاذ القرارات المناسبة.</li>' +
+            '<li>تطوير وتبادل الأفكار مع العميل لإنشاء تحسينات في الضوابط والإجراءات والربحية في النهاية.</li>' +
+            '<li>تركيز واضح ومتسق على القضايا الرئيسية في جميع العمليات العالمية والمحليـة.</li>' +
+            '<li>نهج عملي على مدار العام يهدف إلى توقع المشكلات وتقديم الدعم العملي لحلها في الوقت المناسب.</li>' +
+            '</ul>'
+    },
+    'low-current': {
+		title: 'التدقيق الداخلي',
+        description: '<span style="color: brown;">الهدف الاساسي من التدقيق الداخلي هو تعزيز نظام الرقابة الداخلية ،يقوم التدقيق الداخلي بخدمة فعالية شركات الأعمال حيث يعرض ما يلي، من بين أمور أخرى:</span><ul>' +
+            '<li>مشورة سليمة عن العمليات والأداء والضوابط الداخلية.</li>' +
+            '<li>تقييم مدى امتثال الإجراءات المعتمدة للسياسات الموضوعة.</li>' +
+            '<li>تقييم مدى تنفيذ أفضل الممارسات في كافة أرجاء المنشأة.</li>' +
+            '<li>تصميم خطة تفصيلية للمراجعة الداخلية وإعارة مهنيين على درجة عالية من الكفاءة والخبرة.</li>' +
+            '<li>تنفيذ خطة المراجعة الداخلية وذلك لفترة زمنية محددة.</li>' +
+            '</ul>'
+    },
+	'other-financial-services': {
+        title: 'خدمات مالية أخرى',
+        description: '<span style="color: brown;">خدمات الإجراءات المتفق عليها:</span><ul>' +
+            '<li>يحتاج تكليف وضع الإجراءات المتفق القيام بإجراءات معينة ذات طبيعة دقيقية بخصوص بنود معينة لبيانات مالية أو كشف مالي أو حتى مجموعــــــــــة كاملة من البيانات المالية يتفق عليها مدقق الحسابات والعميل وأي طرف ثالث ملائم، وعند إعداد تقارير مالية بنتائج فعلية</li>' +
+            '<li>نحن في مكتبنا نقوم بتكليفات الإجراءات المتفق عليها حسب "المعايير الأخلاقية المهنية للمحاسبين المهنيين" الصادرة عن الاتحاد الدولـــــــــــــــــي للمحاسبين ووفق الشروط المحددة المتفق عليها في هذه التكليفات</li>' +
+            '</ul>' +
+            '<span style="color: brown;">تدقيق أو مراجعة عناصر من البيانات المالية:</span><ul>' +
+            '<li>تدقيق جزء من البيانات المالية أو عنصر من عناصر نشاط المنشاة</li>' +
+            '<li>ً متماشيا مع ما تتطلبه المعايير الدولية من الإجراءات الشمولية لضمـــــــان تقديـم الخدمات المناسبة للعملاء بالإضافة إلى ما يتطلبه من تقديــــــــــــم المشــورة والرأي للوصول إلى الأهداف المطلوبة من قبل المنشاة.</li>' +
+            '</ul>' +
+            '<span style="color: brown;">الخدمات المحاسبية ومسك السجلات:</span><ul>' +
+            '<li>أما خدماتنا الخاصة بالمحاسبة ومسك الدفاتر فهي مصممة لتناســـــــــــــب احتياجات عملائنا الفردية. ففريقنا المهني على علم ودراية بجميع البرامـــــج المحاسبية الرئيسية وقادر على تصميم العمليات الفنية حسب متطلبــات العملاء حيث يتمتع بالخبرة العالية ويسعى دائما إلى بناء علاقات عمل قوية مع عملائنا.</li>' +
+            '<li>ناهيك عن أن مكتبنا يقدم الفعالية وتزود معلومات إدارية دقيقة ومفيدة للتركيز على إدارة الأعمال بدلا من إدارة إضاعة الوقت.</li>' +
+            '</ul>'
+    },
+    'consultant': {
+        title: 'الإستشارات المالية والإقتصادية',
+        description: '<span style="color: brown;">تقييم الأعمال:</span><ul>' +
+            '<li>إن مرحلة التطور الاقتصادي التي نعيشها حاليا والحاجة لوجود منظمات الأعمال صغيرة ومتوسطة الحجم والشراكات مقرونة برغبة المؤسسات العائلية بزيادة حصصها السوقية تتطلب عمل استثمارات كبيرة وبالتالي لابد من استقطاب مستثمرين خارجيين لدعم منظمات الأعمال في السوق وإبقائها من خلال ضخ الاستثمارات اللازمة، وعليه فإن اللجوء إلى الاندماج أو شراء منظمات الأعمال قد يكون هو الإستراتيجية المناسبة في ظل تلك الظروف.</li>' +
+            '<li>لأغراض معرفة القيمة السوقية لمنظمات الأعمال لابد من عمل دراسات التقييم. إن دراسات التقييم هي عبارة عن خليط ما بين العلم والخبرة لإفراز قيمة عادلة للحصة التي يرغب المستثمر بشرائها في منظمات الأعمال.</li>' +
+            '<li>هناك عدة طرق لتقييم القيمة العادلة لمنظمات الأعمال تعتمد على طبيعة العمل. إن مكتبنا من خلال خبرائها المؤهلين في هذا المجال تقوم بإعداد مثل هذه الدراسات للأغراض تقدير القيمة العادلة لمنظمات الأعمال باستخدام أفضل وأحدث الأساليب.</li>' +
+            '</ul>' +
+            '<span style="color: brown;">دراسة الجدوى الاقتصادية:</span><ul>' +
+            '<li>نقوم بمساعدة المنشأة في دراسة وتحليل السوق لأغراض تقييم الموقف السوقي لمنتجاتها الحالية، مثل قابلية السوق وإمكانية تقديم أو عرض منتج جديد ووضعه التنافسي، بالإضافة إلى دراسة وإعداد التحاليل المالية بغرض تحديد أو استعراض الجدوى الاقتصادية من نشاط أو مشروع استثماري مقترح.</li>' +
+            '</ul>' +
+            '<span style="color: brown;">خدمات الخصخصة:</span><ul>' +
+            '<li>نقوم بإعداد الدراسات الخاصة بتحويل الشركات الحكومية من القطاع العام إلى القطاع الخاص، حيث نقوم بمساعدة الحكومة في إجراءات الخصخصة وتحويل كافة أنشطة المنشأة إلى تجارية.</li>' +
+            '<li>إعداد الخطة الرئيسية والتخطيط الاستراتيجي لتسهيل تحويل المنشأة من القطاع العام إلى القطاع الخاص.</li>' +
+            '<li>تطوير وتحسين معدلات استغلال موجوداتها وإعادة هيكلتها وإعداد عروض البيع العام.</li>' +
+            '</ul>' +
+            '<span style="color: brown;">تصفية الشركات:</span><ul>' +
+            '<li>بالنسبة للتصفية، فيمكن أن تخضع الشركات إلى التصفية لعدة أسباب والذي يترتب عليه إنهاء الترتيبات اللازمة من النواحي المحاسبية والقانونية. إن مكتبنا من خلال كوادرها الخبيرة والمؤهلة في مجال تأسيس وتصفية الشركات تقدم لعملائها تلك الخدمات بشكل مهني.</li>' +
+            '<li>إن خدماتنا المهنية والمتعددة في هذا المجال تفي باحتياجات المنشآت وتساهم في تبسيط سير العمل وانضباطه وتوفير الوقت والأدوات الرقابية الفعالة.</li>' +
+            '<li>تنظيم وإعادة هيكلة الشركات ، المؤسسات والوحدات الاقتصادية.</li>' +
+            '<li>إعداد الأنظمة المالية والإدارية.</li>' +
+            '</ul>'
+    },
+	'corporate-governance': {
+        title: 'خدمات الحوكمة أو حوكمة الشركات',
+        description: '<ul>' +
+			'<li>أصبحت إدارة المخاطر وتنفيذ حوكمة قوية للشركات الآن توقعاً مجتمعياً وضرورة تنظيمية في معظم الشركات ذات الأحجام المختلفة. في حين أن العديد من الشركات مطالبة بموجب القانون أو اللوائح أو أصحاب المصلحة بتطبيق هذه العمليات والإجراءات، يختار المزيد منهم القيام بذلك لأنهم يدركون أن هذا جزء من استراتيجية عمل ناجحة.</li>'+
+            '<li>تقدم خدمة الحوكمة لدينا ممارسات حوكمة شركات شاملة تساعد المؤسسة في الحد من المخاطر وتفادي سوء الإدارة.</li>' +
+            '<li>أما ممارسة حوكمة الشركات لدينا فهي العملية والهيكلة المستخدمتان في توجيه وإدارة أعمال وشؤون المؤسسة بهدف ضمان سلامتها وتعزيز قيمة المساهمين.</li>' +
+            '<li>يتكون فريقنا لحوكمة الشركات من متخصصين من المهنيين والقانونيين الخبراء في ممارسات ومسائل حوكمة الشركات، كما إنه على اطلاع ودراية تامة بتوسعات حوكمة الشركات المحلية والدولية.</li>' +
+            '<li>كما يقوم فريقنا بتقديم تحقيقات تشريعية وقضايا حوكمة شركات ومشاركة مالكين. وتقديم المشورة بشأن هياكل الحوكمة لديها، وتوفير مجموعة من الخدمات المصممة لدعم العملاء في الحفاظ على أطر قوية للحوكمة والضمان.</li>' +
+            '<li>كما يقدمون المشورة بشأن إدارة المخاطر بشكل فعال ويساعدون على ترسيخ الشفافية والمساءلة لقضايا الحوكمة في المؤسسات.</li>' +
+            '</ul>'
+    },
+	'zakat': {
+        title: 'خدمات الزكاة والضرائب',
+        description:'<ul>' +
+            '<li>الضرائب عنصر حاسم في جميع العمليات التجارية لتحقيق الأرباح والاستمرارية في التشغيل، ويوفر نظام الضرائب في اليمن العديد من التحديات الفريدة.</li>' +
+            '<li>قد يؤدي عدم الامتثال للقوانين واللوائح غير الواضحة أحيانًا إلى التزامات زمنية كبيرة ورسوم مهنية وعقوبات ضريبية. من ناحية أخرى، توفر التكلفة الضريبية الفعالة ميزة تنافسية مميزة عند تنفيذ الاستراتيجيات الضريبية المناسبة.</li>' +
+            '<li>خدماتنا الاستشارية الضريبية متعددة الاختصاصات وتشمل مجموعة كاملة من الضرائب المباشرة وغير المباشرة والشخصية. نحن نعمل مع الشركات الأخرى الأعضاء في طلال أبو غزالة وشركاه الدولية المنتشرة في جميع أنحاء العالم في تقديم استشارات ضريبية وطنية ودولية ذات جودة عالية.</li>' +
+            '<li>نحن متحمسون للعمل مع مستشاري الضرائب المحترفين لعملائنا والعمل كمستشارين ضرائب محترفين في مجموعة واسعة من المسائل التجارية.</li>' +
+            '</ul>'
+		}
+};
 
-            function showSlide(index) {
-                if (index < 0 || index >= totalSlides) {
-                    console.error('Invalid slide index:', index);
-                    return;
-                }
-                slider.style.transform = `translateX(-${index * 100}%)`;
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
-                currentSlide = index;
-            }
 
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                showSlide(currentSlide);
-            }
+    function setupFlipCards() {
+        console.log("Setting up flip cards");
+        flipCards = document.querySelectorAll('.flip-card-back ul li');
+        popupOverlay = document.getElementById('popupOverlay');
+        popupTitle = document.getElementById('popupTitle');
+        popupDescription = document.getElementById('popupDescription');
+        closePopup = document.querySelector('.close-popup');
 
-            // Set up dot click listeners
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => showSlide(index));
-            });
-
-            // Start the slideshow
-            let slideInterval = setInterval(nextSlide, 5000);
-
-            // Pause slideshow on mouse enter, resume on mouse leave
-            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-            slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
-
-            // Initial call to show the first slide
-            showSlide(0);
+        if (!flipCards.length) {
+            console.error("No flip cards found. Check your HTML structure.");
+            return;
         }
 
-        // Set up both sliders
-        setupSlider('.slider', '.slide', '.dot');
-        setupSlider('.slider1', '.slide1', '.dotnew');
-
-        // Hide URL bar on mobile
-        setTimeout(hideURLbar, 0);
-
-        // InView functionality
-        inView({
-            selector: '.about-us-row',
-            once: false,
-            offsetTop: 0,
-            offsetBot: 50
-        });
-
-        function handleSecondContainer() {
-            const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
-            if (!secondContainer) return;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        secondContainer.classList.add('in-view');
-                    } else {
-                        secondContainer.classList.remove('in-view');
-                    }
-                });
-            }, {
-                threshold: 0.1 // Trigger when 10% of the element is visible
-            });
-
-            observer.observe(secondContainer);
-        }
-
-        handleSecondContainer();
-
-        const menuBtn = document.querySelector('.my-2023-menu-btn');
-        const banner = document.querySelector('.banner');
-
-        function checkScroll() {
-            if (banner && menuBtn) {
-                const bannerBottom = banner.offsetTop + banner.offsetHeight;
-                if (window.pageYOffset > bannerBottom) {
-                    menuBtn.classList.add('scrolled');
+        flipCards.forEach(item => {
+            item.addEventListener('click', function() {
+                const service = this.getAttribute('data-service');
+                console.log("Flip card clicked:", service);
+                if (serviceInfo[service]) {
+                    popupTitle.textContent = service;
+                    popupDescription.textContent = serviceInfo[service];
+                    popupOverlay.style.display = 'block';
                 } else {
-                    menuBtn.classList.remove('scrolled');
-                }
-            }
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        // Call once to set initial state
-        checkScroll();
-
-        // Contact form submission handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic client-side validation
-            var name = this.Name.value.trim();
-            var email = this.Email.value.trim();
-            var mobile = this.Mobile.value.trim();
-            var message = this.Message.value.trim();
-            
-            if (name === '' || email === '' || mobile === '' || message === '') {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                alert('Please enter a valid email address');
-                return;
-            }
-            
-            if (!isValidMobile(mobile)) {
-                alert('Please enter a valid mobile number');
-                return;
-            }
-            
-            // If validation passes, you would typically send this data to a server
-            // For demonstration, we'll just log it to the console
-            console.log('Form submitted:', { name, email, mobile, message });
-            alert('Form submitted successfully!');
-            this.reset();
-        });
-    });
-	// Function to force light mode
-// Function to force light mode
-function forceLightMode() {
-            document.body.classList.add('light-mode');
-        }
-
-        // Call the function on page load
-        forceLightMode();
-
-// Function to switch to dark mode
-function switchToDarkMode() {
-    document.documentElement.style.setProperty('color-scheme', 'dark', 'important');
-    document.documentElement.style.setProperty('--background-color', '#121212', 'important');
-    document.documentElement.style.setProperty('--text-color', '#ffffff', 'important');
-    
-    applyStyles();
-}
-
-// Function to apply styles and replace specific colors
-function applyStyles() {
-    const isDarkMode = document.documentElement.style.getPropertyValue('color-scheme') === 'dark';
-    
-    document.body.style.setProperty('background-color', 'var(--background-color)', 'important');
-    document.body.style.setProperty('color', 'var(--text-color)', 'important');
-    
-    const allElements = document.getElementsByTagName('*');
-    for (let i = 0; i < allElements.length; i++) {
-        const element = allElements[i];
-        element.style.setProperty('background-color', 'inherit', 'important');
-        element.style.setProperty('color', 'var(--text-color)', 'important');
-        
-        if (isDarkMode) {
-            replaceColor(element, '#553637', '#ffffff');
-        }
-    }
-}
-
-// Function to replace a specific color in an element
-function replaceColor(element, oldColor, newColor) {
-    const styles = window.getComputedStyle(element);
-    const properties = ['color', 'background-color', 'border-color'];
-    
-    properties.forEach(prop => {
-        if (styles[prop].toLowerCase() === oldColor.toLowerCase()) {
-            element.style.setProperty(prop, newColor, 'important');
-        }
-    });
-    
-    if (element.style.color.toLowerCase() === oldColor.toLowerCase()) {
-        element.style.setProperty('color', newColor, 'important');
-    }
-}
-
-// Function to toggle between light and dark mode
-function toggleMode() {
-    const currentMode = document.documentElement.style.getPropertyValue('color-scheme');
-    if (currentMode === 'dark') {
-        forceLightMode();
-    } else {
-        switchToDarkMode();
-    }
-}
-
-// Initial application of light mode
-forceLightMode();
-
-// Check and apply on load and after a short delay
-window.addEventListener('load', function() {
-    applyStyles();
-    setTimeout(applyStyles, 100);
-});
-
-// Use MutationObserver to check for DOM changes
-const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-        if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach(node => {
-                if (node.nodeType === 1) { // ELEMENT_NODE
-                    applyStyles();
+                    console.warn("No info found for service:", service);
                 }
             });
+        });
+
+        if (closePopup) {
+            closePopup.addEventListener('click', function() {
+                popupOverlay.style.display = 'none';
+            });
+        } else {
+            console.error("Close popup button not found");
         }
-    });
-});
 
-observer.observe(document.body, { childList: true, subtree: true });
-
-// Periodically check and enforce styles
-setInterval(applyStyles, 1000);
-
-// Add corresponding CSS
-const style = document.createElement('style');
-style.textContent = `
-    * {
-        background-color: var(--background-color) !important;
-        color: var(--text-color) !important;
+        if (popupOverlay) {
+            popupOverlay.addEventListener('click', function(e) {
+                if (e.target === popupOverlay) {
+                    popupOverlay.style.display = 'none';
+                }
+            });
+        } else {
+            console.error("Popup overlay not found");
+        }
     }
-`;
-document.head.appendChild(style);
 
-// Add a toggle button to the page (you can remove this if you want to control it programmatically)
-const toggleButton = document.createElement('button');
-toggleButton.textContent = 'Toggle Light/Dark Mode';
-toggleButton.style.position = 'fixed';
-toggleButton.style.top = '10px';
-toggleButton.style.right = '10px';
-toggleButton.style.zIndex = '9999';
-toggleButton.addEventListener('click', toggleMode);
-document.body.appendChild(toggleButton);
     function hideURLbar() {
         if (typeof window.scrollTo === 'function') {
             window.scrollTo(0, 1);
@@ -272,6 +162,11 @@ document.body.appendChild(toggleButton);
         }
        
         const elems = Array.from(document.querySelectorAll(opt.selector));
+        if (!elems.length) {
+            console.warn(`No elements found for selector: ${opt.selector}`);
+            return;
+        }
+
         const once = opt.once !== false;
         const offsetTop = opt.offsetTop || 0;
         const offsetBot = opt.offsetBot || 0;
@@ -323,6 +218,271 @@ document.body.appendChild(toggleButton);
     function isValidMobile(mobile) {
         return /^\d{9}$/.test(mobile);
     }
+
+    function setupSlider(sliderSelector, slideSelector, dotSelector) {
+        console.log(`Setting up slider: ${sliderSelector}`);
+        const slider = document.querySelector(sliderSelector);
+        const slides = document.querySelectorAll(slideSelector);
+        const dots = document.querySelectorAll(dotSelector);
+        
+        if (!slider || slides.length === 0) {
+            console.error(`Slider or slides not found for ${sliderSelector}. Check your HTML structure and class names.`);
+            return;
+        }
+
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            if (index < 0 || index >= totalSlides) {
+                console.error('Invalid slide index:', index);
+                return;
+            }
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showSlide(index));
+        });
+
+        let slideInterval = setInterval(nextSlide, 5000);
+
+        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slider.addEventListener('mouseleave', () => slideInterval = setInterval(nextSlide, 5000));
+
+        showSlide(0);
+    }
+
+    function initializeWebsite() {
+        console.log("Initializing website");
+
+        setupSlider('.slider', '.slide', '.dot');
+        setupSlider('.slider1', '.slide1', '.dotnew');
+
+        setTimeout(hideURLbar, 0);
+
+        inView({
+            selector: '.about-us-row',
+            once: false,
+            offsetTop: 0,
+            offsetBot: 50
+        });
+
+        function handleSecondContainer() {
+            const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
+            if (!secondContainer) {
+                console.warn("Second container not found");
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        secondContainer.classList.add('in-view');
+                    } else {
+                        secondContainer.classList.remove('in-view');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            observer.observe(secondContainer);
+        }
+
+        handleSecondContainer();
+
+        const menuBtn = document.querySelector('.my-2023-menu-btn');
+        const banner = document.querySelector('.banner');
+
+        function checkScroll() {
+            if (banner && menuBtn) {
+                const bannerBottom = banner.offsetTop + banner.offsetHeight;
+                if (window.pageYOffset > bannerBottom) {
+                    menuBtn.classList.add('scrolled');
+                } else {
+                    menuBtn.classList.remove('scrolled');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll();
+
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                var name = this.Name.value.trim();
+                var email = this.Email.value.trim();
+                var mobile = this.Mobile.value.trim();
+                var message = this.Message.value.trim();
+                
+                if (name === '' || email === '' || mobile === '' || message === '') {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+                
+                if (!isValidMobile(mobile)) {
+                    alert('Please enter a valid mobile number');
+                    return;
+                }
+                
+                console.log('Form submitted:', { name, email, mobile, message });
+                alert('Form submitted successfully!');
+                this.reset();
+            });
+        } else {
+            console.warn("Contact form not found");
+        }
+
+        setupFlipCards();
+		// Setup for srv-more-info buttons
+		const srvMoreInfoButtons = document.querySelectorAll('.srv-more-info');
+    const srvContainerWrapper = document.querySelector('.srv-container-wrapper');
+    const srvInfoTitle = document.getElementById('srvInfoTitle');
+    const srvInfoDescription = document.getElementById('srvInfoDescription');
+    const srvCloseInfoButton = document.querySelector('.srv-close-info');
+
+    if (srvMoreInfoButtons.length && srvContainerWrapper && srvInfoTitle && srvInfoDescription && srvCloseInfoButton) {
+        srvMoreInfoButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const service = button.getAttribute('data-service');
+                const info = srvServiceInfo[service];
+                if (info) {
+                    srvInfoTitle.textContent = info.title;
+                    srvInfoDescription.innerHTML = info.description;
+                    srvContainerWrapper.style.transform = 'translateX(-50%)';
+                    srvContainerWrapper.classList.add('reduced-height'); // Add this line
+                } else {
+                    console.warn("No info found for service:", service);
+                }
+            });
+        });
+
+        srvCloseInfoButton.addEventListener('click', () => {
+            srvContainerWrapper.style.transform = 'translateX(0)';
+            srvContainerWrapper.classList.remove('reduced-height'); // Add this line
+        });
+    } else {
+        console.warn("Some srv- elements not found. Check your HTML structure.");
+    }
+}
+
+    function forceLightMode() {
+        document.body.classList.add('light-mode');
+    }
+
+    function switchToDarkMode() {
+        document.documentElement.style.setProperty('color-scheme', 'dark', 'important');
+        document.documentElement.style.setProperty('--background-color', '#121212', 'important');
+        document.documentElement.style.setProperty('--text-color', '#ffffff', 'important');
+        
+        applyStyles();
+    }
+
+    function applyStyles() {
+        const isDarkMode = document.documentElement.style.getPropertyValue('color-scheme') === 'dark';
+        
+        document.body.style.setProperty('background-color', 'var(--background-color)', 'important');
+        document.body.style.setProperty('color', 'var(--text-color)', 'important');
+        
+        const allElements = document.getElementsByTagName('*');
+        for (let i = 0; i < allElements.length; i++) {
+            const element = allElements[i];
+            element.style.setProperty('background-color', 'inherit', 'important');
+            element.style.setProperty('color', 'var(--text-color)', 'important');
+            
+            if (isDarkMode) {
+                replaceColor(element, '#553637', '#ffffff');
+            }
+        }
+    }
+
+    function replaceColor(element, oldColor, newColor) {
+        const styles = window.getComputedStyle(element);
+        const properties = ['color', 'background-color', 'border-color'];
+        
+        properties.forEach(prop => {
+            if (styles[prop].toLowerCase() === oldColor.toLowerCase()) {
+                element.style.setProperty(prop, newColor, 'important');
+            }
+        });
+        
+        if (element.style.color.toLowerCase() === oldColor.toLowerCase()) {
+            element.style.setProperty('color', newColor, 'important');
+        }
+    }
+
+    function toggleMode() {
+        const currentMode = document.documentElement.style.getPropertyValue('color-scheme');
+        if (currentMode === 'dark') {
+            forceLightMode();
+        } else {
+            switchToDarkMode();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeWebsite);
+
+    forceLightMode();
+
+    window.addEventListener('load', function() {
+        applyStyles();
+        setTimeout(applyStyles, 100);
+    });
+
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.type === 'childList') {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) {
+                        applyStyles();
+                    }
+                });
+            }
+        });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    setInterval(applyStyles, 1000);
+
+    const style = document.createElement('style');
+    style.textContent = `
+        * {
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+    `;
+    document.head.appendChild(style);
+
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = 'Toggle Light/Dark Mode';
+    toggleButton.style.position = 'fixed';
+    toggleButton.style.top = '10px';
+    toggleButton.style.right = '10px';
+    toggleButton.style.zIndex = '9999';
+    toggleButton.addEventListener('click', toggleMode);
+    document.body.appendChild(toggleButton);
+
+    console.log("Script fully loaded and executed");
+})();
     </script>
 	<!--// Meta tag Keywords -->
 	<!-- css files -->
@@ -440,10 +600,8 @@ document.body.appendChild(toggleButton);
 	
 	
 	<!-- services -->
-	<div class="title-container">
-		<h3 class="title-w3l">ماهي <span>خدماتنا</span></h3>
-	</div>
-	<div class="flip-services" id="services">
+	
+	<!-- <div class="flip-services" id="services"> 
 		
 		<div class="flip-container">
 			<div class="flip-card">
@@ -455,10 +613,10 @@ document.body.appendChild(toggleButton);
 					</div>
 					<div class="flip-card-back">
 						<ul class="flip-card-font2 arabic-list">
-							<li>تدقيق القوائم المالية</li>
-							<li>إعداد تقارير متخصصة ًوفقا لمعايير المحاسبة</li>
-							<li>خدمات التأكيد الأخرى من صحة البيانات المالية</li>
-						  </ul>
+							<li data-service="تدقيق القوائم المالية">تدقيق القوائم المالية</li>
+                            <li data-service="إعداد تقارير متخصصة">إعداد تقارير متخصصة ًوفقا لمعايير المحاسبة</li>
+                            <li data-service="خدمات التأكيد الأخرى">خدمات التأكيد الأخرى من صحة البيانات المالية</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -549,7 +707,97 @@ document.body.appendChild(toggleButton);
 			
 		</div>
 	</div>
-	
+	<div id="popupOverlay" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h2 id="popupTitle"></h2>
+            <p id="popupDescription"></p>
+        </div>
+    </div>-->
+	<div class="title-container">
+		<div class="title-container">
+		<h3 class="title-w3l">ماهي <span>خدماتنا</span></h3>
+		</div>
+	</div>
+	<div class="srv-container-wrapper">
+        <div class="srv-container">
+            <div class="srv-services-grid">
+                <div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 18.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title">التدقيق الخارجي</h3>
+                        <button class="srv-more-info" data-service="fire-fighting">More Info</button>
+                    </div>
+                </div>
+                <div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 21.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title">التدقيق الداخلي</h3>
+                        <button class="srv-more-info" data-service="low-current">More Info</button>
+                    </div>
+                </div>
+                <div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 19.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title">خدمات مالية</h3>
+                        <button class="srv-more-info" data-service="other-financial-services">More Info</button>
+                    </div>
+                </div>
+				<div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 16.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title">خدمات الحوكمة</h3>
+                        <button class="srv-more-info" data-service="corporate-governance">More Info</button>
+                    </div>
+                </div>
+				<div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 17.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title" > الإستشارات المالية و الإقتصادية</h3>
+                        <button class="srv-more-info" data-service="consultant">More Info</button>
+                    </div>
+                </div>
+				<div class="srv-service-item">
+                    <div class="srv-service-icon">
+                        <img src="Images2/Asset 20.png" alt="خدمات">
+                    </div>
+                    <div class="srv-service-content">
+                        <h3 class="srv-service-title">خدمات الزكاة والضرائب</h3>
+                        <button class="srv-more-info" data-service="zakat">More Info</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="srv-container srv-info-container">
+            <div class="srv-info-box">
+                <div class="srv-info-content">
+                    <h2 id="srvInfoTitle" class="srv-info-title"></h2>
+                    <div id="srvInfoDescription" class="srv-info-description"></div>
+                </div>
+                <button class="srv-close-info">Close</button>
+            </div>
+        </div>
+    </div>
+            
+            
+        </div>
+    </div>
+	<div>
+		<P>
+			<br>
+			
+		</P>
+	</div>
 	<div class="title-container">
 		<h3 class="title-w3l">القطاعات التي يقدمها مكتبنا<span></span></h3>
 	</div>
@@ -630,6 +878,12 @@ document.body.appendChild(toggleButton);
 				</div>
 			</div>
 		</section>
+	</div>
+
+	<div>
+		<P>
+			<br>
+		</P>
 	</div>
 	<div class="title-container">
 		<h3 class="title-w3l">فعالية خدماتنا</h3>
