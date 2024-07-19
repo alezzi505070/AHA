@@ -261,6 +261,13 @@ const srvServiceInfo = {
 
         showSlide(0);
     }
+	function tagChangeSlide(slideNumber) {
+        document.querySelectorAll('.tag-slide').forEach(slide => {
+            slide.classList.remove('active');
+        });
+        document.getElementById('tag-slide' + slideNumber).classList.add('active');
+    }
+	window.tagChangeSlide = tagChangeSlide;
 
     function initializeWebsite() {
         console.log("Initializing website");
@@ -276,7 +283,7 @@ const srvServiceInfo = {
             offsetTop: 0,
             offsetBot: 50
         });
-
+		
         function handleSecondContainer() {
             const secondContainer = document.querySelector('.about-us-container:nth-of-type(2) .about-us-row');
             if (!secondContainer) {
@@ -317,7 +324,7 @@ const srvServiceInfo = {
 
         window.addEventListener('scroll', checkScroll);
         checkScroll();
-
+		
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
@@ -383,11 +390,11 @@ const srvServiceInfo = {
         console.warn("Some srv- elements not found. Check your HTML structure.");
     }
 }
-
+	
     function forceLightMode() {
         document.body.classList.add('light-mode');
     }
-
+	
     function switchToDarkMode() {
         document.documentElement.style.setProperty('color-scheme', 'dark', 'important');
         document.documentElement.style.setProperty('--background-color', '#121212', 'important');
@@ -546,7 +553,31 @@ const srvServiceInfo = {
     </a>
 	<!-- //banner -->
 
-
+	<div>
+		<p>
+			<br><br>
+		</p>
+	</div>
+	
+	<div class="title-container">
+		<div class="title-container">
+		<h3 class="title-w3l">لمحة حول شركة الإرتباط</h3>
+		</div>
+	</div>
+	<div class="tag-info-slider">
+  <div class="tag-slider-container">
+    <div class="tag-slide active" id="tag-slide1">
+      <h2>نبذة عن الشركة</h2>
+      <p>طلال أبوغزاله العالمية، هي شركة قابضة تضم عدة شركات مهنية ضمن مجموعتها. وباعتبارها مؤسسة عالمية رائدة، حققت قدرا كبيرا من الخبرات والإنجازات الهامة في مجال الخدمات المهنية منذ تأسيسها. وتوظف طلال أبو غزاله العالمية فرقا من المهنيين العرب المؤهلين تأهيلا عاليا وذوي الخبرات المميزة المتواجدين رهن إشارتكم في كل عاصمة عربية لتوفير خدمات الخبراء في الأمور المالية والصناعية لتلبية احتياجات العملاء.</p>
+      <button class="tag-slide-button" onclick="tagChangeSlide(2)">لمحة تاريخية</button> 
+    </div>
+    <div class="tag-slide" id="tag-slide2">
+      <h2>لمحة تاريخية</h2>
+      <p>أسست مجموعة طلال أبو غزاله عام 1972. تعمل طلال أبوغزاله العالمية اليوم من خلال أكثر من (100) مكتبا منتشرة في المدن الرئيسية في العالم العربي، وتمتد خدماتها ضمن مساحة تقرب من (5) ملايين ميل مربع وتخاطب ما مجموعه (200) مليون من السكان. إن هذه الحقائق تؤهلنا لنكون مؤسسة إقليمية من المستشارين المهنيين في الخدمات المتنوعة، الذين يتميزون بمعرفة العديد من اللغات ومن ذوي الكفاءات والخبرات المميزة.</p>
+      <button class="tag-slide-button" onclick="tagChangeSlide(1)">نبذة عن الشركة</button>
+    </div>
+  </div>
+	</div>
 
 	
 	<section class="about-us-section" id="about">
