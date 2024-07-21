@@ -769,7 +769,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      height: 40vh;
       margin: 0;
       overflow: hidden;
     }
@@ -870,7 +870,7 @@ body {
     @media (max-width: 600px) {
       .tag-slider-container {
         width: 95%;
-        height: 60vh;
+        height: 40vh;
         border-radius: 20px;
       }
 
@@ -1759,8 +1759,8 @@ i.fa.fa-cutlery {
 }
 
 .circle img {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
 
     object-fit: cover;
 }
