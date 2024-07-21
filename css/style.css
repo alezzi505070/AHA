@@ -1266,6 +1266,8 @@ i.fa.fa-cutlery {
     width: 100%;
     margin-bottom: 20px;
     color: #553637;
+	line-height: 1.5;
+
 }
 @media (max-width: 600px) {
     .title-w3l {
