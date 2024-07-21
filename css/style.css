@@ -1776,26 +1776,28 @@ i.fa.fa-cutlery {
 	color: #333;
 	margin-top: 20px;
 }
-
 .dots-container1 {
-	text-align: center;
-	margin-top: 20px;
+    text-align: center;
+    margin-top: 20px;
 }
 
 .dotnew {
-	display: inline-block;
-	width: 10px;
-	height: 10px;
-	background-color: #bbb;
-	border-radius: 50%;
-	margin: 0 5px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+    display: inline-block;
+    width: 5px; /* Smaller size for non-active dots */
+    height: 5px; /* Smaller size for non-active dots */
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, width 0.3s ease, height 0.3s ease; /* Add transitions for smooth resizing */
 }
 
 .dotnew.active {
-	background-color: #717171;
+    width: 10px; /* Larger size for active dot */
+    height: 10px; /* Larger size for active dot */
+    background-color: #717171;
 }
+
 
 #small-dialog,#small-dialog1,#small-dialog2,#small-dialog3,#small-dialog4,#small-dialog5{
 	background: white;
