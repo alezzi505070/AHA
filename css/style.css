@@ -764,12 +764,12 @@ body {
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap');
 
     .tag-info-slider {
-      font-family: 'Almarai', sans-serif;
+      font-family: 'cha','Almarai', sans-serif;
       
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40vh;
+      height: 80vh;
       margin: 0;
       overflow: hidden;
     }
@@ -868,9 +868,15 @@ body {
 
     /* Responsive Design - For Phone Screens */
     @media (max-width: 600px) {
+		.tag-info-slider {
+			
+			height: 60vh;
+			
+		  }
+	  
       .tag-slider-container {
         width: 95%;
-        height: 40vh;
+        height: 50vh;
         border-radius: 20px;
       }
 
