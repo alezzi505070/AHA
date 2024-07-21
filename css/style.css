@@ -98,7 +98,6 @@ label{
 	bottom: 0;
 	background-color: rgba(19, 16, 17, 0.8);
   }
-
   .logo-container {
 	position: relative;
 	z-index: 1;
@@ -106,32 +105,33 @@ label{
 	width: 100%;
 	padding: 20px 0;
   }
-
+  
   .company-logo {
-	width: 15vw;
-	max-width: 300px;
-	min-width: 100px;
+	width: 20vw; /* Increase the default size */
+	max-width: 400px; /* Increase the maximum width */
+	min-width: 150px; /* Increase the minimum width */
 	height: auto;
 	transition: width 0.3s ease;
   }
-
+  
   @media screen and (max-width: 768px) {
 	.company-logo {
-	  width: 30vw;
+	  width: 50vw; /* Increase the size for small screens */
 	}
   }
-
+  
   @media screen and (min-width: 1200px) {
 	.company-logo {
-	  width: 20vw;
+	  width: 25vw; /* Increase the size for large screens */
 	}
   }
-
+  
   @media screen and (min-width: 1600px) {
 	.company-logo {
-	  width: 18vw;
+	  width: 22vw; /* Increase the size for extra large screens */
 	}
   }
+  
   .my-2023-unique-menu * {
 	margin: 0 !important;
 	padding: 0 !important;
