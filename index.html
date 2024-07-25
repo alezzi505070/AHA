@@ -268,6 +268,18 @@ const srvServiceInfo = {
         document.getElementById('tag-slide' + slideNumber).classList.add('active');
     }
 	window.tagChangeSlide = tagChangeSlide;
+	function updateScrollIndicator() {
+            const scrollPercentage = (infoBox.scrollTop / (infoBox.scrollHeight - infoBox.clientHeight)) * 100;
+            const indicatorPosition = Math.min(100 - scrollPercentage, 100);
+            scrollIndicator.style.bottom = `${indicatorPosition}%`;
+
+            // Show indicator only when not at the bottom
+            if (scrollPercentage < 99) {
+                scrollIndicator.style.opacity = '1';
+            } else {
+                scrollIndicator.style.opacity = '0';
+            }
+        }
 
     function initializeWebsite() {
         console.log("Initializing website");
@@ -305,8 +317,9 @@ const srvServiceInfo = {
 
             observer.observe(secondContainer);
         }
-
+		
         handleSecondContainer();
+		
 
         const menuBtn = document.querySelector('.my-2023-menu-btn');
         const banner = document.querySelector('.banner');
@@ -357,7 +370,7 @@ const srvServiceInfo = {
         } else {
             console.warn("Contact form not found");
         }
-
+		
         setupFlipCards();
 		// Setup for srv-more-info buttons
 		const srvMoreInfoButtons = document.querySelectorAll('.srv-more-info');
@@ -760,6 +773,8 @@ const srvServiceInfo = {
                     <div class="srv-service-content">
                         <h3 class="srv-service-title">التدقيق الخارجي</h3>
                         <button class="srv-more-info" data-service="fire-fighting">More Info</button>
+						<div class="scroll-indicator"></div>
+
                     </div>
                 </div>
                 <div class="srv-service-item">
@@ -778,6 +793,8 @@ const srvServiceInfo = {
                     <div class="srv-service-content">
                         <h3 class="srv-service-title">خدمات مالية</h3>
                         <button class="srv-more-info" data-service="other-financial-services">More Info</button>
+						<div class="scroll-indicator"></div>
+
                     </div>
                 </div>
 				<div class="srv-service-item">
@@ -805,6 +822,8 @@ const srvServiceInfo = {
                     <div class="srv-service-content">
                         <h3 class="srv-service-title">خدمات الزكاة والضرائب</h3>
                         <button class="srv-more-info" data-service="zakat">More Info</button>
+						<div class="scroll-indicator"></div>
+
                     </div>
                 </div>
             </div>

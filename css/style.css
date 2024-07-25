@@ -1587,7 +1587,7 @@ i.fa.fa-cutlery {
 	background-color: #fff;
 	border-radius: 8px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	padding: 30px;
+	padding: 30px 30px 30px 40px;
 	max-width: 600px;
 	width: 90%;
 	height: 50vh;
@@ -1595,21 +1595,7 @@ i.fa.fa-cutlery {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-}
-.srv-info-box::after {
-	content: '';
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 30px;
-	background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-}
-.srv-info-box.has-overflow::after {
-	opacity: 1;
+	direction: ltr; /* Set direction to left-to-right */
 }
 .srv-info-title {
 	font-size: 24px;
@@ -1620,6 +1606,7 @@ i.fa.fa-cutlery {
 .srv-info-description {
 	text-align: right;
 	direction: rtl;
+	padding-bottom: 20px;
 }
 .srv-close-info {
 	background-color: #bd926D;
@@ -1629,12 +1616,13 @@ i.fa.fa-cutlery {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 14px;
-	align-self: flex-end;
+	align-self: flex-start;
 	margin-top: auto;
 }
 .srv-info-description ul {
 	padding-right: 20px;
 	list-style-type: none;
+	margin-bottom: 0;
 }
 .srv-info-description li {
 	margin-bottom: 10px;
@@ -1645,6 +1633,57 @@ i.fa.fa-cutlery {
 	position: absolute;
 	right: -15px;
 	color: #bd926D;
+}
+
+/* Scroll indicator styles */
+.scroll-indicator {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+	background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+/* Custom Scrollbar Styles */
+.srv-info-box::-webkit-scrollbar {
+	width: 8px;
+}
+.srv-info-box::-webkit-scrollbar-track {
+	background: transparent;
+}
+.srv-info-box::-webkit-scrollbar-thumb {
+	background: #bd926D;
+	border-radius: 4px;
+}
+.srv-info-box::-webkit-scrollbar-thumb:hover {
+	background: #a17a5c;
+}
+
+/* For Firefox */
+.srv-info-box {
+	scrollbar-width: thin;
+	scrollbar-color: #bd926D transparent;
+}
+
+/* For mobile devices */
+@media (max-width: 768px) {
+	.srv-info-box {
+		-webkit-overflow-scrolling: touch;
+		overflow-y: scroll;
+	}
+	.srv-info-box::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 7px;
+	}
+	.srv-info-box::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+	}
 }
 
 /* Custom Scrollbar Styles */
