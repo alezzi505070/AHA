@@ -1579,29 +1579,38 @@ i.fa.fa-cutlery {
 	text-align: right;
 	justify-content: center;
 	align-items: center;
-	height: 50vh;
-	margin-top: 80px;
+	height: 100vh;
+	padding: 20px;
+	box-sizing: border-box;
 }
 .srv-info-box {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 600px;
-    width: 90%;
-    height: 50vh; /* Fixed height */
-    overflow-y: scroll; /* Enable vertical scrollbar */
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
-    position: relative;
-    display: flex;
-    flex-direction: column;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	padding: 30px;
+	max-width: 600px;
+	width: 90%;
+	height: 50vh;
+	overflow-y: auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
-
-.srv-info-box::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+.srv-info-box::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 30px;
+	background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
-
+.srv-info-box.has-overflow::after {
+	opacity: 1;
+}
 .srv-info-title {
 	font-size: 24px;
 	font-weight: bold;
@@ -1636,6 +1645,28 @@ i.fa.fa-cutlery {
 	position: absolute;
 	right: -15px;
 	color: #bd926D;
+}
+
+/* Custom Scrollbar Styles */
+.srv-info-box::-webkit-scrollbar {
+	width: 10px;
+}
+.srv-info-box::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+.srv-info-box::-webkit-scrollbar-thumb {
+	background: #bd926D;
+	border-radius: 10px;
+}
+.srv-info-box::-webkit-scrollbar-thumb:hover {
+	background: #a17a5c;
+}
+
+/* For Firefox */
+.srv-info-box {
+	scrollbar-width: thin;
+	scrollbar-color: #bd926D #f1f1f1;
 }
 @media (max-width: 768px) {
 	.srv-services-grid {
