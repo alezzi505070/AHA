@@ -1669,22 +1669,7 @@ i.fa.fa-cutlery {
 	scrollbar-color: #bd926D transparent;
 }
 
-/* For mobile devices */
-@media (max-width: 768px) {
-	.srv-info-box {
-		-webkit-overflow-scrolling: touch;
-		overflow-y: scroll;
-	}
-	.srv-info-box::-webkit-scrollbar {
-		-webkit-appearance: none;
-		width: 7px;
-	}
-	.srv-info-box::-webkit-scrollbar-thumb {
-		border-radius: 4px;
-		background-color: rgba(0,0,0,.5);
-		-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
-	}
-}
+
 
 /* Custom Scrollbar Styles */
 .srv-info-box::-webkit-scrollbar {
@@ -1711,6 +1696,22 @@ i.fa.fa-cutlery {
 	.srv-services-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 20px;
+	}
+}
+/* For mobile devices */
+@media (max-width: 480px) {
+	.srv-info-box {
+		-webkit-overflow-scrolling: touch;
+		overflow-y: scroll;
+	}
+	.srv-info-box::-webkit-scrollbar {
+		-webkit-appearance: none;
+		width: 7px;
+	}
+	.srv-info-box::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background-color: rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 	}
 }
 @media (max-width: 480px) {
