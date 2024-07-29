@@ -1579,7 +1579,7 @@ i.fa.fa-cutlery {
 	text-align: right;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	height: 60vh;
 	padding: 20px;
 	box-sizing: border-box;
 }
@@ -1723,9 +1723,9 @@ i.fa.fa-cutlery {
 		gap: 20px;
 	}
 	.srv-info-box {
-		padding: 20px;
+		padding: 10px;
 		width: 95%;
-		margin-top: 00px;
+		margin-top: 10px;
 		height: 55vh;
 		margin-bottom: -400px;
 		padding-top: 10%;
